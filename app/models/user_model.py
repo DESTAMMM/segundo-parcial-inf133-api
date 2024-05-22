@@ -26,3 +26,6 @@ class Worker(UserMixin, db.Model):
     @staticmethod
     def find_by_name(name):
         return Worker.query.filter_by(name=name).first()
+    @staticmethod
+    def find_by_email(email):
+        return Worker.query.filter_by(email=email).first()

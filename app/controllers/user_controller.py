@@ -30,13 +30,13 @@ def register():
 @worker_bp.route("/login", methods=["POST"])
 def login():
     data = request.json
-    name = data.get("name")
+    email = data.get("email")
     password = data.get("password")
 
-    worker = Worker.find_by_name(name)
+    worker = Worker.find_by_email(email)
     if worker and check_password_hash(worker.password_hash, password):
         access_token = create_access_token(
-            identity={"username": name, "roles": worker.roles}
+            identity={"email": email, "roles": worker.roles}
         )
         return jsonify(access_token=access_token), 200
     else:
